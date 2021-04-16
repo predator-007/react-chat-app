@@ -1,0 +1,8 @@
+.chatpage{
+    margin:auto;
+    margin-top:1.5vh;
+    margin-bottom: 1.5vh;
+    display: block;
+    width: fit-content;
+    display: flex;
+}

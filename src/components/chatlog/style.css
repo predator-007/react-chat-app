@@ -1,0 +1,6 @@
+.chatlog{
+    height: 95vh;
+    width: 28vw;
+    display: inline-block;
+    border:1px solid black;
+}
