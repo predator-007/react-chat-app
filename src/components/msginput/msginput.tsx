@@ -21,7 +21,9 @@ return(
     <div className="msginput">
         <form onSubmit={(e)=>sendmsg(e)}>
         <input type="text" className="form-contro" placeholder="Type a message..." 
-        onChange={(e)=>setmsg(e.target.value)}
+        value={msg}
+        onChange={(e)=>{setmsg(e.target.value)}}
+        
         ></input>
         <button type="submit" className="btn"><i  className="fas fa-camera"></i></button>
         </form>

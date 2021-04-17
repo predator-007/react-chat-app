@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "react-bootstrap";
 import firebase from "firebase/app";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useraction } from '../../services/actions/user';
 import './style.css';
 const Login : React.FC=()=>{
-/*
+
+  /*
   const [email,setemail]=useState<string >("");
   const [password,setpassword]=useState<string>("");
   const [status,setstatus]=useState<string>("");
@@ -38,20 +39,27 @@ const Login : React.FC=()=>{
     }
   
   }
-  
     */
-   const auth=firebase.auth();
-   const provider=new firebase.auth.GoogleAuthProvider();
-   const dispatch=useDispatch();
+  const auth=firebase.auth();
+  const provider=new firebase.auth.GoogleAuthProvider();
+  const userref=firebase.firestore().collection("users");
+  const dispatch=useDispatch(); 
+  const adduser=(name:any)=>{
+    userref.doc(name).set({
+      displayName:name,
+      status:"online"
+    })           
+  }
    const login=()=>{
-    auth.signInWithPopup(provider).then((result)=>{
-              dispatch(useraction(result.user))
-    }).catch((err)=>console.log(err));
+      auth.signInWithPopup(provider).then(async(result)=>{
+            dispatch(useraction(result.user)); 
+            adduser(result.user?.displayName);
+          }).catch((err)=>console.log(err));
   }
    return(
       <body className="bodylogin" >
         <Button className="button" variant="danger" onClick={()=>login()}>login</Button>
     </body>
 );
-};
+}
 export default Login;

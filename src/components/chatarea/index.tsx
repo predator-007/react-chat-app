@@ -14,18 +14,17 @@ const Chatarea:React.FC=()=>{
     const query=messageref.orderBy('createdAt').limit(25);
     const [messages]=useCollectionData(query,{idField:'id'});
     const user=useSelector((state:any)=>state.user);
-    const get=()=>{
-        messageref.onSnapshot((data1)=>{
-            
-            data1.forEach((doc)=>{
-                console.log(doc.data());
-            })
-            
-        });
-    }
+        const get=()=>{
+            messageref.onSnapshot((data1)=>{
+                
+                data1.forEach((doc)=>{
+                    console.log(doc.data());
+                })
+                
+            });
+        }
     
 return(
-
     <div className="chatarea">
         <Senderinfo/>
         <div className="msgarea">
