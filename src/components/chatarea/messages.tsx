@@ -5,12 +5,15 @@ import MsgInput from "../msginput/msginput";
 import { useSelector } from "react-redux";
 import './style.css';
 const Messages=()=>{
+    
+    
     const user=useSelector((state:any)=>state.user);
     const reciever=useSelector((state:any)=>state.reciever);
     const firestore=firebase.firestore();
     const messageref=firestore.collection("messages");
-    const query=messageref.where("from","==",user.displayName).where("to","==",reciever).orderBy('createdAt').limit(25);
-    const [messages]=useCollectionData(query,{idField:'id'});
+    const query=messageref.orderBy('createdAt').limit(25);
+    var [messages]=useCollectionData(query);
+    messages=messages?.filter(obj=>(obj.from==user.displayName&&obj.to==reciever)||(obj.from==reciever&&obj.to==user.displayName));
     
     return(
         <div className="chatarea">
@@ -24,11 +27,11 @@ const Messages=()=>{
                 
                 (msg.from==user.displayName)?
                 <li className="smsg">
-                <h5 style={{fontSize:"80%"}}>{msg.text}</h5>
+                <h5 className="msgtext">{msg.text}</h5>
                 </li>
                 :
                 <li className="rmsg">
-                <h5 style={{fontSize:"80%"}}>{msg.text}</h5>
+                <h5 className="msgtxt">{msg.text}</h5>
                 </li>
             )
             )

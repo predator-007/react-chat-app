@@ -34,10 +34,17 @@ const MsgInput:React.FC=()=>{
             });
             setmsg("");
     }
+    const check=(obj:{from:string,to:string})=>{
+        if(obj.from=="spidy spider" && obj.to=="srijan raj"){
+            return true;
+        }
+    }
+
 return(
     <div className="msginput">
         <form onSubmit={(e)=>{
             sendmsg(e);
+            
         }
         }>
         <input type="text" className="inputmessage" placeholder="Type a message..." 

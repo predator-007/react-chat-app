@@ -5,6 +5,7 @@
     display: block;
     flex-direction: column;
     display: flex;
+    background-color: white;
 }
 .msgarea{
     height: 100%; 
