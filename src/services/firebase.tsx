@@ -6,7 +6,7 @@ export const init =()=>{
     if (!firebase.apps.length) {     
     firebase.initializeApp({
     apiKey: "AIzaSyBS0xkI0RYyTAVGPi-noEUPR2zLw79LhQ4",
-    authDomain: "lets-talk-app.netlify.app",
+    authDomain: "react-chat-app-40025.firebaseapp.com",
     projectId: "react-chat-app-40025",
     storageBucket: "react-chat-app-40025.appspot.com",
     messagingSenderId: "361376102779",
