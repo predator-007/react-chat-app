@@ -3,12 +3,5 @@
     width: 100vw;
     display: flex;
     justify-content: center;
-    background-color: aqua;
-}
-.button{
-    margin-top: 60vh;
-    width: max-content;
-    height: max-content;
-    background-color: brown;
-    
+    background: whitesmoke;
 }
