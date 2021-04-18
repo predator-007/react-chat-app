@@ -31,7 +31,7 @@ const Messages=()=>{
                 </li>
                 :
                 <li className="rmsg">
-                <h5 className="msgtxt">{msg.text}</h5>
+                <h5 className="msgtext">{msg.text}</h5>
                 </li>
             )
             )
