@@ -27,7 +27,7 @@ return(
     <h4 className="username">{user.displayName}</h4> 
     <button id="logoutbtn" className="btn"
     onClick={()=>signout()}
-    ><i className="fa fa-sign-out" style={{color:"white"}}></i></button>
+    ><i className="fa fa-sign-out" style={{color:"black"}}></i></button>
     </div>
 );
 }
