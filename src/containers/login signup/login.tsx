@@ -4,11 +4,10 @@ import firebase from "firebase/app";
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useraction } from '../../services/actions/user';
 import './style.css';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import { Avatar, Grid, Paper, TextField } from '@material-ui/core';
 import { ChatBubbleOutline, ChatBubbleOutlined, Facebook, MailOutline, Twitter } from '@material-ui/icons';
 const Login : React.FC=()=>{
-
+  
   /*
   const [email,setemail]=useState<string >("");
   const [password,setpassword]=useState<string>("");
@@ -91,7 +90,7 @@ const Login : React.FC=()=>{
         <Grid>
           <Paper elevation={10} style={paperStyle}>
             <Grid container spacing={0} justify='center' alignItems='center' direction='column'>
-              <Avatar style={avatarStyle}><ChatBubbleOutlineIcon/></Avatar>
+              <Avatar style={avatarStyle}><ChatBubbleOutline/></Avatar>
             <h2 style={headStyle}>Sign In/Sign Up</h2>
             </Grid>
             <TextField label='Username' placeholder='Enter Username' fullWidth required style={unameStyle}/>
@@ -104,6 +103,6 @@ const Login : React.FC=()=>{
           </Paper>
         </Grid>
     </body>
-   );
+);
 };
 export default Login;
