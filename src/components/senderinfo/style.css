@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color: rgb(47, 130, 224);
+    background-color: whitesmoke;
 }
 .senderinfoimg{
     width: 40px;
@@ -16,5 +16,5 @@
     margin-top: 6px;
     margin-left: 25%;
     font:80%;
-    color: white;
+    color:black;
 }

@@ -1,7 +1,15 @@
+.welcome{
+    height: 100%;
+    width: 100%;
+    display: block;
+    flex-direction: column;
+    display: flex;
+    background: white;
 
-.chatarea,.welcome{
-    height: 95vh;
-    width: 68vw;
+}
+.chatarea{
+    height: 100%;
+    width: 100%;
     display: block;
     flex-direction: column;
     display: flex;
@@ -47,8 +55,9 @@ h5{
 }
 .smsg{
     float:right;
-    background-color:lightblue;
+    background-color:whitesmoke;
 }
 .rmsg{
-    float:left;    
+    float:left;
+    background-color: whitesmoke;    
 }
