@@ -18,25 +18,25 @@ const Messages=()=>{
     return(
         <div className="chatarea">
         <Senderinfo/>
-        <div className="msgarea">
-        <ul>
-        {
-            messages && messages.map(
-                (msg)=>
-            (
+            <div className="msgarea">
+            <ul>
+            {
+                messages && messages.map(
+                    (msg)=>
+                    (
                 
-                (msg.from==user.displayName)?
-                <li className="smsg">
-                <h5 className="msgtext">{msg.text}</h5>
-                </li>
-                :
-                <li className="rmsg">
-                <h5 className="msgtext">{msg.text}</h5>
-                </li>
-            )
-            )
-        }
-        </ul>
+                        (msg.from==user.displayName)?
+                        <li className="smsg">
+                        <h5 className="msgtext">{msg.text}</h5>
+                        </li>
+                    :
+                    <li className="rmsg">
+                    <h5 className="msgtext">{msg.text}</h5>
+                    </li>
+                    )
+                )
+            }
+            </ul>
         </div>
         <MsgInput/>
         </div>

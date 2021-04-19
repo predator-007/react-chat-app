@@ -1,26 +1,29 @@
-.welcome{
-    height: 100%;
-    width: 100%;
-    display: block;
-    flex-direction: column;
-    display: flex;
-    background: white;
-
+html
+body
+{
+ display:grid;
+}
+.logoStyle{
+    margin-top: 200px;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
 }
 .chatarea{
-    height: 100%;
-    width: 100%;
-    display: block;
+    height: 95vh;
+    width:65vw;
     flex-direction: column;
     display: flex;
-    background-color: white;
+    background-color:whitesmoke;
 }
 .msgarea{
-    height: 100%; 
+    height: 250%; 
     overflow-y: scroll;
 }
 
 ul,li{
+    background: black;
     padding:0;
     margin:0;
     margin-left:10px;
@@ -29,20 +32,21 @@ ul,li{
 }
 li{
     list-style: none;
-    background-color: whitesmoke;
+    background-color: black;
     clear:both;
     padding:10px;
+    height:fit-content;
     width: fit-content;
     border-radius: 8px;
     position:relative;
     box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 p{
-    margin-top:0;
+    margin-top:20;
     padding: 0;
     font-size: 60%;
     margin-left: 100%;
-    color: grey;
+    color:black ;
     position:absolute;
     bottom:0;
 }
@@ -55,7 +59,7 @@ p{
 }
 .smsg{
     float:right;
-    background-color:whitesmoke;
+    background-color: lightskyblue;
 }
 .rmsg{
     float:left;

@@ -1,10 +1,11 @@
 import './style.css';
-import logo from "./../../images/logo2.png";
+import logo from "./../../images/icons8-chat.gif";
 const Welcome:React.FC=()=>{
+    const divStyle={padding:'10vh'};
     return(
         <div className="Welcome">
-            <div>
-                <img src={logo}></img>
+            <div style={divStyle}>
+                <img className="logoStyle" src={logo}></img>
             </div>
         </div>
     );

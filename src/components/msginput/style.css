@@ -1,6 +1,5 @@
 .msginput{
-    height:10%;
-    width:100%;
+    height:20%;
     display: flex;
     flex-direction: row;
     justify-content:center;
@@ -10,7 +9,7 @@ input{
     padding:8px;
     padding-left: 12px;
     outline: none;
-    width: 63vw;
+    width: 62vw;
     border: 0.1px solid rgb(78, 212, 230);
     border-radius: 10000px;
     margin-bottom: 2px;
