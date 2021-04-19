@@ -70,10 +70,12 @@ const Login : React.FC=()=>{
     ).catch(err=>console.log(err));
   }
    const loginwithgoogle=()=>{
+     auth.setPersistence("local").then(()=>{
       auth.signInWithPopup(providergoogle).then(async(result)=>{
             dispatch(useraction(result.user)); 
             adduser(result.user?.displayName);
-          }).catch((err)=>console.log(err));
+          }).catch((err)=>console.log(err));       
+        });
   }
   const paperStyle={padding:20,height:'70vh',width:380,margin:"100px auto"};
   const avatarStyle={backgroundColor:'#28c328'};
