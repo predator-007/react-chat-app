@@ -8,6 +8,7 @@ init();
 function App() {
   const user=useSelector((state:any)=>state.user);
   return (
+    /*
     <div className="App">
       {
         (!user)?
@@ -16,10 +17,10 @@ function App() {
        <Chatpage/>
       } 
       </div>
-    /*  
+    */  
    <div className="App">
      <Vediochat/>
-   </div>*/
+   </div>
   );
 }
 export default App;
