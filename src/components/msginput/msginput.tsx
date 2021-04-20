@@ -32,6 +32,7 @@ const MsgInput:React.FC=()=>{
                 to:reciever,
                 time:time(new Date),
             });
+            
             setmsg("");
     }
     const check=(obj:{from:string,to:string})=>{

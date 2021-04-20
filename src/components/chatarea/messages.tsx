@@ -11,10 +11,10 @@ const Messages=()=>{
     const reciever=useSelector((state:any)=>state.reciever);
     const firestore=firebase.firestore();
     const messageref=firestore.collection("messages");
-    const query=messageref.orderBy('createdAt').limit(25);
+    const query=messageref.orderBy('createdAt');
     var [messages]=useCollectionData(query);
     messages=messages?.filter(obj=>(obj.from==user.displayName&&obj.to==reciever)||(obj.from==reciever&&obj.to==user.displayName));
-    
+    console.log(messages);
     return(
         <div className="chatarea">
         <Senderinfo/>
