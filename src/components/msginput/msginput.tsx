@@ -25,6 +25,7 @@ const MsgInput:React.FC=()=>{
     }
     const sendmsg=async(e:React.FormEvent)=>{
             e.preventDefault();
+            if(msg!=""){
             await messageref.add({
                 text:msg,
                 createdAt:firebase.firestore.FieldValue.serverTimestamp(),
@@ -32,7 +33,7 @@ const MsgInput:React.FC=()=>{
                 to:reciever,
                 time:time(new Date),
             });
-            
+            }
             setmsg("");
     }
     const check=(obj:{from:string,to:string})=>{
