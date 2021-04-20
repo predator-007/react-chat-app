@@ -6,6 +6,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import Userinfo from '../userinfo';
 import img from '../userinfo/img.jpg'
 import { recieveraction } from '../../services/actions/reciever';
+import Searchbar from '../searchbar/searchbar';
 const Chatlog:React.FC=()=>{
     const dispatch=useDispatch();
     const userref=firebase.firestore().collection("users");
@@ -15,6 +16,9 @@ const Chatlog:React.FC=()=>{
 return(
     <div className="chatlog">
         <Userinfo/>
+        <div>
+            <Searchbar/>
+        </div>
     {
         users?.map(
         (user)=>(
