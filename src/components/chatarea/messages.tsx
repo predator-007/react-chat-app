@@ -27,13 +27,11 @@ const Messages=()=>{
                 
                         (msg.from==user.displayName)?
                         <li className="smsg">
-                        <h6 className="msgtext">{msg.text}</h6>
-                        <p className="msgtime">{msg.time}</p>
+                        <h6 className="msgtext">{msg.text}{' '}{msg.time}</h6>
                         </li>
                     :
                     <li className="rmsg">
-                    <h6 className="msgtext">{msg.text}</h6>
-                    <p className="msgtime">{msg.time}</p>
+                    <h6 className="msgtext">{msg.text}{' '}{msg.time}</h6>
                     </li>
                     )
                 )
