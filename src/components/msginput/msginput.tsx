@@ -30,7 +30,7 @@ const MsgInput:React.FC=()=>{
                 text:msg,
                 createdAt:firebase.firestore.FieldValue.serverTimestamp(),
                 from:user.displayName,
-                to:reciever,
+                to:reciever.displayName,
                 time:time(new Date),
             });
             }

@@ -16,6 +16,7 @@ const signout=()=>{
             status:"offline",
         }
     );
+    localStorage.clear();
     dispatch(useraction(null));
 }
 return(

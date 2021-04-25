@@ -65,7 +65,10 @@ const Login : React.FC=()=>{
   const loginwithfacebook=()=>{
     auth.signInWithPopup(providerfacebook).then(
     (result)=>{
-        console.log(result.user);
+      dispatch(useraction(result.user));
+        adduser(result.user?.displayName);
+        
+        console.log(result.user?.displayName);
     }
     ).catch(err=>console.log(err));
   }
@@ -73,9 +76,8 @@ const Login : React.FC=()=>{
     auth.signInWithPopup(providergoogle).then(async(result)=>{
           dispatch(useraction(result.user));
             adduser(result.user?.displayName);
-            sessionStorage.setItem('user',JSON.stringify(result.user));
+            window.location.reload();
           }).catch((err)=>console.log(err));       
-        
   }
   const paperStyle={padding:20,height:'70vh',width:380,margin:"100px auto"};
   const avatarStyle={backgroundColor:'#28c328'};

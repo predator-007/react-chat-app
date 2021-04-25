@@ -11,8 +11,9 @@ const Chatlog:React.FC=()=>{
     const dispatch=useDispatch();
     const userref=firebase.firestore().collection("users");
     const user=useSelector((state:any)=>state.user);
+
     const [users]=useCollectionData(userref.where("displayName","!=",user.displayName));
-    
+   
 return(
     <div className="chatlog">
         <Userinfo/>
@@ -23,7 +24,7 @@ return(
         users?.map(
         (user)=>(
             <span onClick={()=>{
-                dispatch(recieveraction(user.displayName));
+                dispatch(recieveraction(user));
             }}>
             <div className="userslog"> 
             <img src={img}

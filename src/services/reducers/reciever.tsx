@@ -1,4 +1,4 @@
-export const recieverreducer=(state:string|null=null,action:{type:string,payload:string|null})=>{
+export const recieverreducer=(state:any=null,action:{type:string,payload:any})=>{
         if(action.type=="reciever")
         {
             return action.payload;

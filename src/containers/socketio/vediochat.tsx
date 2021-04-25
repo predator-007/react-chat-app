@@ -2,21 +2,38 @@ import React,{useState,useEffect,useRef} from 'react';
 import io  from "socket.io-client";
 import Peer from "simple-peer";
 import { Grid, Input, Paper, TextField, Typography } from '@material-ui/core';
-import { Button } from 'react-bootstrap';
-
-const socket =io.connect("https://react-chat-appbackend.herokuapp.com/");
+import { Button, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { recievingcallaction } from '../../services/actions/recievingcall';
+import { calleraction } from '../../services/actions/caller';
+import { callernameaction } from '../../services/actions/callername';
+import { callersignalaction } from '../../services/actions/callersignal';
+import { callacceptedaction } from '../../services/actions/callaccepted';
+import { callendedaction } from '../../services/actions/callended';
+import { callmodeaction } from '../../services/actions/callmode';
+//const socket =io.connect("https://react-chat-appbackend.herokuapp.com/");
 
 const Vediochat:React.FC=()=>{
-    const [me,setMe]=useState<any>("");
-    const [stream,setStream]=useState<any>(null);
-    const [recievingCall,setRecievingCall]=useState<boolean>(false);
-    const [caller,setcaller]=useState<any>("");
-    const [callerSignal,setCallerSignal]=useState<any>();
-    const [callAccepted,setCallAccepted]=useState<boolean>(false);
-    const [idToCall,setIdToCall]=useState<any>("");
-    const [callEnded,setCallEnded]=useState<any>(false); 
-    const [name,setName]=useState<string>("");
+    const dispatch=useDispatch();
+
+    const socket=useSelector((state:any)=>state.socket);
+    const user=useSelector((state:any)=>state.user);
+    const reciever=useSelector((state:any)=>state.reciever);
+    const caller=useSelector((state:any)=>state.caller);
+    const callerSignal=useSelector((state:any)=>state.callersignal);
+    const callAccepted=useSelector((state:any)=>state.callaccepted);
+    const callEnded=useSelector((state:any)=>state.callended);
+    const name=useSelector((state:any)=>state.callername);
+    const recievingCall=useSelector((state:any)=>state.recievingcall);
+    const callmode=useSelector((state:any)=>state.callmode);
     
+    const [calling,setcalling]=useState<boolean>(false);
+
+    const idToCall=reciever.socketioid;
+    const username=user.displayName;
+
+    const [stream,setStream]=useState<any>(null);
+
     const myVideo=useRef<any>();
     const userVideo=useRef<any>();
     const connectionRef=useRef<any>();
@@ -27,19 +44,32 @@ const Vediochat:React.FC=()=>{
         .then((stream)=>{
             setStream(stream);
             myVideo.current.srcObject =stream;
-        });
+        });    
         
-        socket.on("me",(id:any)=>{setMe(id)});
-
+        /*
+        socket.on("me",(id:any)=>{
+            setMe(id);
+            console.log(id);
+            userref.doc(username).update(
+                {
+                    socketid:id
+                }
+            )
+        });*/
+        /*
         socket.on("callUser",(data:any)=>{
-            setRecievingCall(true);
-            setcaller(data.from);
-            setName(data.name);
-            setCallerSignal(data.signal);
-        })
+            console.log(data);
+            dispatch(recievingcallaction(true));
+            dispatch(calleraction(data.from));
+            dispatch(callernameaction(data.name));
+            dispatch(callersignalaction(data.signal));
+        
+        })*/
     },[]);
 
     const calluser=(id:any)=>{
+        console.log("calling user",reciever.displayName, id);
+        setcalling(true);
         const peer =new Peer(
         {
             initiator:true,
@@ -47,13 +77,12 @@ const Vediochat:React.FC=()=>{
             stream:stream,
         }
         )
-
         peer.on("signal",(data)=>{
             socket.emit("callUser",{
                 userToCall:id,
                 signalData:data,
-                from:me,
-                name:name,
+                from:user.socketioid,
+                name:user.displayName,
             })
         })
 
@@ -62,7 +91,8 @@ const Vediochat:React.FC=()=>{
         })
 
         socket.on("callAccepted",(signal:any)=>{
-            setCallAccepted(true);
+            dispatch(callacceptedaction(true));
+            setcalling(false);
             peer.signal(signal);
         })
 
@@ -71,8 +101,7 @@ const Vediochat:React.FC=()=>{
     };
 
     const answercall=()=>{
-        
-        setCallAccepted(true);
+        dispatch(callacceptedaction(true));
         const peer =new Peer({
             initiator:false,
             trickle:false,
@@ -92,11 +121,15 @@ const Vediochat:React.FC=()=>{
     }
     
     const leavecall=()=>{
-        setCallEnded(true);
+        dispatch(callendedaction(true));
         connectionRef.current.destroy();
+        window.location.reload();
     }
-
     return(
+    <Modal show={callmode}
+    backdrop="static"
+    keyboard={false}
+    >
     <div className="VedioChat">
         <div className="container">
             <div className="video-container">
@@ -111,10 +144,7 @@ const Vediochat:React.FC=()=>{
                 </div>
             </div>
             <div className="myid">
-            <TextField label="Name" value={name} onChange={(e)=>setName(e.target.value)}></TextField>
-            <Button onClick={()=>{console.log(me)}}>getid</Button>
             <br/>
-            <TextField label="idtocall" value={idToCall} onChange={(e)=>setIdToCall(e.target.value)}></TextField>
             <div className="call-button">
                 {   callAccepted && !callEnded ?
                     (
@@ -122,10 +152,13 @@ const Vediochat:React.FC=()=>{
                     )
                     :
                     (
-                        <Button onClick={()=>{calluser(idToCall)}}>call</Button>
+                        calling?
+                        <h1>calling {reciever.displayName}</h1>
+                        :
+                        !recievingCall &&(
+                        <Button onClick={()=>{calluser(idToCall)}}>call</Button>)
                     )
                 }
-                {idToCall}
             </div>
             </div>
             <div>
@@ -143,7 +176,8 @@ const Vediochat:React.FC=()=>{
             </div>
         </div>    
     </div>
-
+    <button className="btn" onClick={()=>{dispatch(callmodeaction(false));window.location.reload();}}>close</button>
+    </Modal>
 
         );
 }

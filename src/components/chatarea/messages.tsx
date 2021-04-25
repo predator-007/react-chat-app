@@ -8,7 +8,8 @@ const Messages=()=>{
     
     
     const user=useSelector((state:any)=>state.user);
-    const reciever=useSelector((state:any)=>state.reciever);
+    const recieve=useSelector((state:any)=>state.reciever);
+    const reciever=recieve.displayName;
     const firestore=firebase.firestore();
     const messageref=firestore.collection("messages");
     const query=messageref.orderBy('createdAt');
