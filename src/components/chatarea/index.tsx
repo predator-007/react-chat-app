@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Welcome from './welcome';
 import Messages from './messages';
 
-const Chatarea:React.FC=()=>{
+const Chatarea:React.FC<any>=()=>{
     const user=useSelector((state:any)=>state.user);
     const reciever=useSelector((state:any)=>state.reciever);
     
@@ -14,7 +14,9 @@ return(
         (!reciever)?
         <Welcome/>
         :
-        <Messages/>
+        <Messages
+        
+        />
     }
     </div>
 );
