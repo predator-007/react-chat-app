@@ -41,14 +41,17 @@ li{
     position:relative;
     box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.msgdiv{
+    display: flex;
+    flex-direction: row;
+}
 .msgtime{
-    margin-top:20;
-    padding: 0;
-    font-size: 60%;
-    margin-left: 100%;
-    color:grey ;
-    position:absolute;
-    bottom:0;
+    color:"grey";
+    margin-left: 10px;
+    font-size: xx-small;
+    margin-top: 10%;
+    margin-bottom: 0%;
+    
 }
 .msgtext{
     margin: 0;

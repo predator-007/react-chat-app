@@ -8,6 +8,7 @@ const user=useSelector((state:any)=>state.user);
 const auth=firebase.auth();
 const dispatch=useDispatch();
 const db=firebase.firestore();
+
 const signout=()=>{
     auth.signOut().then(res=>console.log("signout succesfully"))
     .catch(err=>console.log(err));
