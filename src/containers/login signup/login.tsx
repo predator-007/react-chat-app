@@ -18,7 +18,6 @@ const Login : React.FC=()=>{
     console.log("name checking",name);
     userref.doc(name).set({
       displayName:name,
-      status:"online",
     }).catch(err=>{
       console.log(err);
     })           

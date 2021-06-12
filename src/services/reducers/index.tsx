@@ -8,6 +8,7 @@ import { callersignalreducer } from "./callersignal";
 import { callacceptedreducer } from "./callaccepted";
 import { callendedreducer } from "./callended";
 import { callmodereducer } from "./callmode";
+import { onlineUsersReducer } from "./onlineusers";
 export const allreducer={
     user:userreducer,
     reciever:recieverreducer,
@@ -19,4 +20,5 @@ export const allreducer={
     callaccepted:callacceptedreducer,
     callended:callendedreducer,
     callmode:callmodereducer,
+    onlineUsers:onlineUsersReducer,
 }

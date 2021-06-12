@@ -11,7 +11,7 @@ const Chatlog:React.FC=()=>{
     const dispatch=useDispatch();
     const userref=firebase.firestore().collection("users");
     const user=useSelector((state:any)=>state.user);
-
+    const onlineUsers=useSelector((state:any)=>state.onlineUsers);
     const [users]=useCollectionData(userref.where("displayName","!=",user.displayName));
    
 return(
@@ -32,7 +32,11 @@ return(
             className="chatloguserimg"
             ></img>
             <h4 className="h1userlog">{user.displayName}</h4>
-            <span className="spanuserlog">{user.status}</span>
+            <span className="spanuserlog">{
+            (onlineUsers[user.displayName])?"Online":"offline"
+
+            
+            }</span>
             </div>
             </span>
         )

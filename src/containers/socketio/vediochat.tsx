@@ -6,7 +6,6 @@ import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { recievingcallaction } from '../../services/actions/recievingcall';
 import { calleraction } from '../../services/actions/caller';
-import { callernameaction } from '../../services/actions/callername';
 import { callersignalaction } from '../../services/actions/callersignal';
 import { callacceptedaction } from '../../services/actions/callaccepted';
 import { callendedaction } from '../../services/actions/callended';
@@ -23,13 +22,13 @@ const Vediochat:React.FC=()=>{
     const callerSignal=useSelector((state:any)=>state.callersignal);
     const callAccepted=useSelector((state:any)=>state.callaccepted);
     const callEnded=useSelector((state:any)=>state.callended);
-    const name=useSelector((state:any)=>state.callername);
+    //const name=useSelector((state:any)=>state.callername);
     const recievingCall=useSelector((state:any)=>state.recievingcall);
     const callmode=useSelector((state:any)=>state.callmode);
     
     const [calling,setcalling]=useState<boolean>(false);
 
-    const idToCall=reciever.socketioid;
+    //const idToCall=reciever.socketioid;
     const username=user.displayName;
 
     const [stream,setStream]=useState<any>(null);
@@ -39,36 +38,16 @@ const Vediochat:React.FC=()=>{
     const connectionRef=useRef<any>();
 
     useEffect(()=>{
-
+        
         navigator.mediaDevices.getUserMedia({video:true,audio:true})
         .then((stream)=>{
             setStream(stream);
             myVideo.current.srcObject =stream;
-        });    
-        
-        /*
-        socket.on("me",(id:any)=>{
-            setMe(id);
-            console.log(id);
-            userref.doc(username).update(
-                {
-                    socketid:id
-                }
-            )
-        });*/
-        /*
-        socket.on("callUser",(data:any)=>{
-            console.log(data);
-            dispatch(recievingcallaction(true));
-            dispatch(calleraction(data.from));
-            dispatch(callernameaction(data.name));
-            dispatch(callersignalaction(data.signal));
-        
-        })*/
+        });   
     },[]);
 
-    const calluser=(id:any)=>{
-        console.log("calling user",reciever.displayName, id);
+    const calluser=()=>{
+        console.log("calling user",reciever.displayName);
         setcalling(true);
         const peer =new Peer(
         {
@@ -77,17 +56,18 @@ const Vediochat:React.FC=()=>{
             stream:stream,
         }
         )
+        console.log(stream);
         peer.on("signal",(data)=>{
+
             socket.emit("callUser",{
-                userToCall:id,
                 signalData:data,
-                from:user.socketioid,
-                name:user.displayName,
+                from:user.displayName,
+                to:reciever.displayName,    
             })
         })
 
         peer.on("stream",(stream)=>{
-            userVideo.current.srcObject= stream;
+            userVideo.current.srcObject=stream;
         })
 
         socket.on("callAccepted",(signal:any)=>{
@@ -101,7 +81,9 @@ const Vediochat:React.FC=()=>{
     };
 
     const answercall=()=>{
+        
         dispatch(callacceptedaction(true));
+        console.log(stream);
         const peer =new Peer({
             initiator:false,
             trickle:false,
@@ -111,7 +93,7 @@ const Vediochat:React.FC=()=>{
         peer.on("signal",(data)=>{
             socket.emit("answerCall", {signal:data,to:caller})
         });
-
+        console.log(stream);
         peer.on("stream",(stream)=>{
             userVideo.current.srcObject=stream;
         });
@@ -138,7 +120,10 @@ const Vediochat:React.FC=()=>{
                 </div>
                 <div  className="video">
                 { callAccepted && !callEnded ?
-                <video playsInline  ref={userVideo} autoPlay style={{width:"300px"}}></video>:
+                <div>
+                    <h1>Second Cam</h1>
+                <video playsInline  ref={userVideo} autoPlay style={{width:"300px"}}></video>
+                  </div>  :
                     null
                 }
                 </div>
@@ -156,7 +141,7 @@ const Vediochat:React.FC=()=>{
                         <h1>calling {reciever.displayName}</h1>
                         :
                         !recievingCall &&(
-                        <Button onClick={()=>{calluser(idToCall)}}>call</Button>)
+                        <Button onClick={()=>{calluser()}}>call</Button>)
                     )
                 }
             </div>
@@ -166,7 +151,7 @@ const Vediochat:React.FC=()=>{
                 recievingCall && !callAccepted ?
                 (
                     <div className="caller">
-                        <h1>{name} is calling ... </h1>
+                        <h1>{caller} is calling ... </h1>
                         <Button onClick={()=>{answercall()}}>answer</Button>
                     </div>
                 )

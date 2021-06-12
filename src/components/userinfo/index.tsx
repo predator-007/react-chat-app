@@ -8,15 +8,11 @@ const user=useSelector((state:any)=>state.user);
 const auth=firebase.auth();
 const dispatch=useDispatch();
 const db=firebase.firestore();
-
+const socket=useSelector((state:any)=>state.socket);
 const signout=()=>{
     auth.signOut().then(res=>console.log("signout succesfully"))
     .catch(err=>console.log(err));
-    db.collection("users").doc(user.displayName).update(
-        {
-            status:"offline",
-        }
-    );
+    socket.close();
     localStorage.clear();
     dispatch(useraction(null));
 }
