@@ -43,6 +43,7 @@ const Vediochat:React.FC=()=>{
         .then((stream)=>{
             setStream(stream);
             myVideo.current.srcObject =stream;
+            
         });   
     },[]);
 
