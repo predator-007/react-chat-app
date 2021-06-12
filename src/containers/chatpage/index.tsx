@@ -23,7 +23,7 @@ const Chatpage:React.FC=()=>{
     useEffect(()=>{
         console.log("chat area useEffect");
         
-        const socket=io.connect("http://localhost:5000/");
+        const socket=io.connect("https://react-chat-appbackend.herokuapp.com/");
         
         dispatch(socketaction(socket));
         
